@@ -1,0 +1,4 @@
+# This file is used to configure Flutter SDK location
+# Copy this file to local.properties and set the path to your Flutter SDK
+
+flutter.sdk=/path/to/flutter/sdk

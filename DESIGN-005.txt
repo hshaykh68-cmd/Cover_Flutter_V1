@@ -1,0 +1,21 @@
+DESIGN-005 · Onboarding — The Missing 30% of the Product
+There is no onboarding. This must be built before launch. Structure:
+
+Screen 1: "Welcome to Cover"
+  - Calculator icon → vault icon transition animation
+  - Headline: "Private. Secure. Invisible."
+  - CTA: "Get Started"
+
+Screen 2: "Set Your Secret PIN"
+  - Custom numpad (NOT the calculator — too early to reveal the mechanic)
+  - PIN dots indicator
+  - "This PIN unlocks your real vault"
+
+Screen 3: "The Calculator Trick"
+  - Animated demo: user types PIN+0= → vault opens
+  - Explainer text
+  - "Try it yourself" → drops to calculator screen
+
+Screen 4: (Optional) "Set a Decoy PIN"
+  - "Add a fake vault to show if pressured"
+  - Skip option always visible

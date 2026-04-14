@@ -1,0 +1,4 @@
+enum VaultType {
+  real,
+  decoy,
+}

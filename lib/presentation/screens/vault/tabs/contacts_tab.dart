@@ -48,7 +48,7 @@ class _ContactsTabState extends ConsumerState<ContactsTab>
       
       // Decrypt names
       final cryptoService = ref.read(cryptoServiceProvider);
-      final vaultService = ref.read(vaultServiceProvider);
+      final vaultService = await ref.read(vaultServiceProvider.future);
       final encryptionKey = await vaultService.getEncryptionKey();
       
       final Map<int, String> decrypted = {};
@@ -83,7 +83,7 @@ class _ContactsTabState extends ConsumerState<ContactsTab>
       
       // Decrypt names for search results
       final cryptoService = ref.read(cryptoServiceProvider);
-      final vaultService = ref.read(vaultServiceProvider);
+      final vaultService = await ref.read(vaultServiceProvider.future);
       final encryptionKey = await vaultService.getEncryptionKey();
       
       final Map<int, String> decrypted = {};

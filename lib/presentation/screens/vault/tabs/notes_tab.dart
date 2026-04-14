@@ -45,7 +45,7 @@ class _NotesTabState extends ConsumerState<NotesTab>
       
       // Decrypt titles
       final cryptoService = ref.read(cryptoServiceProvider);
-      final vaultService = ref.read(vaultServiceProvider);
+      final vaultService = await ref.read(vaultServiceProvider.future);
       final encryptionKey = await vaultService.getEncryptionKey();
       
       final Map<int, String> decrypted = {};
@@ -80,7 +80,7 @@ class _NotesTabState extends ConsumerState<NotesTab>
       
       // Decrypt titles for search results
       final cryptoService = ref.read(cryptoServiceProvider);
-      final vaultService = ref.read(vaultServiceProvider);
+      final vaultService = await ref.read(vaultServiceProvider.future);
       final encryptionKey = await vaultService.getEncryptionKey();
       
       final Map<int, String> decrypted = {};

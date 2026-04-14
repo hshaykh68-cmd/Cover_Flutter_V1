@@ -37,7 +37,7 @@ class _GalleryTabState extends ConsumerState<GalleryTab>
   Future<void> _loadMediaItems() async {
     setState(() => _isLoading = true);
     try {
-      final vaultService = ref.read(vaultServiceProvider);
+      final vaultService = await ref.read(vaultServiceProvider.future);
       final vaultId = await vaultService.getVaultId(VaultNamespace.real);
       
       if (vaultId != null) {

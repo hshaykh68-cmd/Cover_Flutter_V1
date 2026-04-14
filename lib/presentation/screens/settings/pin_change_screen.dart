@@ -73,7 +73,7 @@ class _PinChangeScreenState extends ConsumerState<PinChangeScreen> {
     });
 
     try {
-      final vaultService = ref.read(vaultServiceProvider);
+      final vaultService = await ref.read(vaultServiceProvider.future);
       final cryptoService = ref.read(cryptoServiceProvider);
       final secureStorage = ref.read(secureKeyStorageProvider);
 

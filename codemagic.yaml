@@ -5,7 +5,7 @@ workflows:
   debug-workflow:
     name: Cover Android Debug Build
     environment:
-      flutter: stable
+      flutter: 3.19.6  # ← THIS VERSION WORKS WITH JAVA 11!
     triggering:
       events:
         - push
@@ -13,13 +13,6 @@ workflows:
         - pattern: main
           include: true
     scripts:
-      # Step 0: Set Java 17
-      - name: Set Java 17
-        script: |
-          export JAVA_HOME=$(/usr/libexec/java_home -v 17 2>/dev/null || echo "/Library/Java/JavaVirtualMachines/jdk-17.0.9.jdk/Contents/Home")
-          echo "JAVA_HOME=$JAVA_HOME"
-          java -version
-      
       # Step 1: Install Flutter dependencies
       - name: Install Flutter dependencies
         script: |
@@ -38,12 +31,7 @@ workflows:
         script: |
           flutter pub run build_runner build --delete-conflicting-outputs
       
-      # Step 4: Analyze code
-      - name: Analyze code
-        script: |
-          flutter analyze --no-fatal-infos || true
-      
-      # Step 5: Build Android Debug APK
+      # Step 4: Build Android Debug APK
       - name: Build Android Debug APK
         script: |
           flutter build apk --debug

@@ -13,13 +13,20 @@ workflows:
         - pattern: main
           include: true
     scripts:
+      # Step 0: Set Java 17
+      - name: Set Java 17
+        script: |
+          export JAVA_HOME=$(/usr/libexec/java_home -v 17 2>/dev/null || echo "/Library/Java/JavaVirtualMachines/jdk-17.0.9.jdk/Contents/Home")
+          echo "JAVA_HOME=$JAVA_HOME"
+          java -version
+      
       # Step 1: Install Flutter dependencies
       - name: Install Flutter dependencies
         script: |
           flutter pub get
       
-      # Step 2: Download Gradle Wrapper JAR
-      - name: Download Gradle Wrapper JAR
+      # Step 2: Setup Gradle
+      - name: Setup Gradle
         script: |
           mkdir -p android/gradle/wrapper
           curl -L -o android/gradle/wrapper/gradle-wrapper.jar \
@@ -42,4 +49,4 @@ workflows:
           flutter build apk --debug
     
     artifacts:
-      - build/app/outputs/flutter-apk/Cover_debug.apk
+      - build/app/outputs/flutter-apk/app-debug.apk

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cover/core/utils/logger.dart';
+import 'package:cover/core/config/app_config.dart';
 
 /// Regional pricing configuration
 class RegionalPricingConfig {
@@ -16,6 +17,10 @@ class RegionalPricingConfig {
 
 /// Service for regional pricing based on purchasing power parity (PPP)
 class RegionalPricingService {
+  final AppConfig _appConfig;
+
+  RegionalPricingService(this._appConfig);
+
   // Countries eligible for 50% discount
   static const Set<String> _discountCountries = {
     // South Asia
@@ -50,6 +55,15 @@ class RegionalPricingService {
     // Others
     'UA', // Ukraine
     'UZ', // Uzbekistan
+  };
+
+  // Default discount countries (fallback if _discountCountries is empty)
+  static const Set<String> _defaultDiscountCountries = {
+    'IN', 'BD', 'PK', 'LK', 'NP', 'BT',
+    'PH', 'ID', 'VN', 'MM', 'KH', 'LA',
+    'NG', 'KE', 'GH', 'ET', 'TZ', 'UG', 'EG', 'MA',
+    'BO', 'HN', 'NI', 'SV', 'GT',
+    'UA', 'UZ',
   };
 
   // Currency codes for discount countries (simplified mapping)
@@ -200,25 +214,6 @@ class RegionalPricingService {
   /// Get product ID for regional pricing
   /// Note: Google Play Billing handles regional pricing automatically
   /// You configure different prices for different countries in Play Console
-  /// This method returns the appropriate product ID based on region
-  String getRegionalProductId(String baseProductId, String countryCode) {
-    if (!isDiscountEligible(countryCode)) {
-      return baseProductId;
-    }
-
-    // For discount countries, use regional product IDs
-    // These would be configured in Play Console with lower prices
-    if (baseProductId.contains('monthly')) {
-      return 'com.cover.subscription.monthly.discount';
-    } else if (baseProductId.contains('yearly')) {
-      return 'com.cover.subscription.yearly.discount';
-    } else if (baseProductId.contains('lifetime')) {
-      return 'com.cover.lifetime.discount';
-    }
-
-    return baseProductId;
-  }
-}
   /// This method returns the appropriate product ID based on region
   String getRegionalProductId(String baseProductId, String countryCode) {
     if (!isDiscountEligible(countryCode)) {

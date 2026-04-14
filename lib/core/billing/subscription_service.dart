@@ -604,9 +604,3 @@ class SubscriptionServiceImpl implements SubscriptionService {
     _entitlementStatusController.close();
   }
 }
-    _entitlementStatusController.close();
-  }
-}
-}
-}
-}

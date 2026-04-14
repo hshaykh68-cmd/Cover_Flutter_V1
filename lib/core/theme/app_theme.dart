@@ -166,7 +166,7 @@ class AppTheme {
     ),
   );
 
-  sttextTheme: const TextTheme(
+  static final textTheme = const TextTheme(
       displayLarge: largeTitle,
       displayMedium: title1,
       displaySmall: title2,
@@ -179,7 +179,7 @@ class AppTheme {
       titleSmall: caption1,
       titleMedium: caption2,
     ),
-    atic ThemeData darkTheme = ThemeData(
+  static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,

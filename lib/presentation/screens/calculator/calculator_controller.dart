@@ -72,7 +72,6 @@ class CalculatorController extends StateNotifier<CalculatorState> {
     } else {
       newDisplay = state.display == '0' ? digit : state.display + digit;
     }
-  isResultDisplayed: false,
     
     state = state.copyWith(
       display: newDisplay,

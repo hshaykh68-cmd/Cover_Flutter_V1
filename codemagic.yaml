@@ -1,3 +1,6 @@
+# Codemagic CI/CD Configuration for Cover App
+# Android Debug Build Pipeline
+
 workflows:
   debug-workflow:
     name: Cover Android Debug Build
@@ -11,30 +14,39 @@ workflows:
           include: true
     scripts:
       - name: Install Flutter dependencies
-        script: flutter pub get
+        script: |
+          flutter pub get
       
       - name: Patch sqflite_sqlcipher plugin
         script: |
           PLUGIN_PATH="$HOME/.pub-cache/hosted/pub.dev/sqflite_sqlcipher-3.2.0/android/build.gradle"
           if [ -f "$PLUGIN_PATH" ]; then
+            echo "Patching sqflite_sqlcipher plugin..."
             sed -i.bak '25s/.*/    compileSdkVersion 34/' "$PLUGIN_PATH"
+            
             if ! grep -q "defaultConfig" "$PLUGIN_PATH"; then
-              sed -i.bak '/compileSdkVersion 34/a\
-    \
-    defaultConfig {\
-        minSdkVersion 23\
-    }' "$PLUGIN_PATH"
+              echo "" >> "$PLUGIN_PATH"
+              echo "    defaultConfig {" >> "$PLUGIN_PATH"
+              echo "        minSdkVersion 23" >> "$PLUGIN_PATH"
+              echo "    }" >> "$PLUGIN_PATH"
             fi
+            
+            echo "Plugin patched successfully!"
+          else
+            echo "Plugin not found at $PLUGIN_PATH"
           fi
       
       - name: Make gradlew executable
-        script: chmod +x android/gradlew 2>/dev/null || true
+        script: |
+          chmod +x android/gradlew 2>/dev/null || true
       
       - name: Generate code
-        script: flutter pub run build_runner build --delete-conflicting-outputs
+        script: |
+          flutter pub run build_runner build --delete-conflicting-outputs
       
       - name: Build Android Debug APK
-        script: flutter build apk --debug
+        script: |
+          flutter build apk --debug
     
     artifacts:
       - build/app/outputs/flutter-apk/app-debug.apk

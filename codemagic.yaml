@@ -5,7 +5,7 @@ workflows:
   debug-workflow:
     name: Cover Android Debug Build
     environment:
-      flutter: 3.19.6  # ← THIS VERSION WORKS WITH JAVA 11!
+      flutter: 3.19.6
     triggering:
       events:
         - push
@@ -18,12 +18,21 @@ workflows:
         script: |
           flutter pub get
       
-      # Step 2: Setup Gradle
+      # Step 2: Setup Gradle with Gradle 8.0
       - name: Setup Gradle
         script: |
           mkdir -p android/gradle/wrapper
           curl -L -o android/gradle/wrapper/gradle-wrapper.jar \
-            https://github.com/gradle/gradle/raw/v7.6.3/gradle/wrapper/gradle-wrapper.jar
+            https://github.com/gradle/gradle/raw/v8.0/gradle/wrapper/gradle-wrapper.jar
+          
+          cat > android/gradle/wrapper/gradle-wrapper.properties << 'EOF'
+          distributionBase=GRADLE_USER_HOME
+          distributionPath=wrapper/dists
+          zipStoreBase=GRADLE_USER_HOME
+          zipStorePath=wrapper/dists
+          distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-all.zip
+          EOF
+          
           chmod +x android/gradlew
       
       # Step 3: Generate code

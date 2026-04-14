@@ -12,14 +12,6 @@ import 'package:cover/core/billing/purchase_verifier.dart';
 import 'package:cover/data/repository/subscription_firestore_repository.dart';
 import 'package:cover/data/model/subscription_firestore_model.dart';
 
-/// Subscription tier
-enum SubscriptionTier {
-  free,
-  monthly,
-  yearly,
-  lifetime,
-}
-
 /// Subscription product details
 class SubscriptionProduct {
   final String productId;
@@ -202,8 +194,9 @@ class SubscriptionServiceImpl implements SubscriptionService {
     // Listen to purchase updates
     _subscription = _inAppPurchase.purchaseStream.listen(
       _handlePurchaseUpdate,
-      onDone: _updateStreamOnDone,
-      onError: _handlePurchaseError,
+      onError: (error) {
+        AppLogger.error('Purchase stream error', error);
+      },
     );
 
     // Load subscription state from Firestore

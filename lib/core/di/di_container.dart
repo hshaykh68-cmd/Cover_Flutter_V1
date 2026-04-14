@@ -6,6 +6,7 @@ import 'package:cover/core/crypto/crypto_service.dart';
 import 'package:cover/core/crypto/crypto_service_impl.dart';
 import 'package:cover/core/secure_storage/secure_key_storage.dart';
 import 'package:cover/core/secure_storage/secure_key_storage_impl.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:cover/core/constants/app_constants.dart';
 import 'package:cover/core/pin/pin_state_machine.dart';
 import 'package:cover/core/vault/vault_service.dart';
@@ -63,6 +64,7 @@ import 'package:cover/data/repository/intruder_log_repository_impl.dart';
 import 'package:cover/data/repository/user_repository_impl.dart';
 import 'package:cover/data/repository/remote_config_repository_impl.dart';
 import 'package:cover/data/repository/file_repository_impl.dart';
+import 'package:cover/data/repository/pin_repository_impl.dart';
 import 'package:cover/data/local/database/daos/file_dao.dart';
 import 'package:cover/presentation/screens/vault/vault_shell_screen.dart';
 import 'package:cover/presentation/navigation/app_router.dart';
@@ -199,6 +201,12 @@ Future<IntruderLogRepository> intruderLogRepository(IntruderLogRepositoryRef ref
 Future<UserRepository> userRepository(UserRepositoryRef ref) async {
   final dao = await ref.watch(userDaoProvider.future);
   return UserRepositoryImpl(dao);
+}
+
+// PIN Repository Provider
+@Riverpod(keepAlive: true)
+PinRepository pinRepository(PinRepositoryRef ref) {
+  return PinRepositoryImpl(const FlutterSecureStorage());
 }
 
 // Firebase Remote Config Provider

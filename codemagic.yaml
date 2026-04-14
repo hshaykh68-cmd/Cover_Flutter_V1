@@ -19,21 +19,30 @@ workflows:
       
       - name: Patch sqflite_sqlcipher plugin
         script: |
-          PLUGIN_PATH="$HOME/.pub-cache/hosted/pub.dev/sqflite_sqlcipher-3.2.0/android/build.gradle"
-          if [ -f "$PLUGIN_PATH" ]; then
-            echo "Patching sqflite_sqlcipher plugin..."
-            sed -i.bak '25s/.*/    compileSdkVersion 34/' "$PLUGIN_PATH"
+          # Find the actual installed version
+          PLUGIN_DIR=$(find "$HOME/.pub-cache/hosted/pub.dev" -maxdepth 1 -name "sqflite_sqlcipher-*" | head -1)
+          
+          if [ -d "$PLUGIN_DIR" ]; then
+            PLUGIN_PATH="$PLUGIN_DIR/android/build.gradle"
+            echo "Found plugin at: $PLUGIN_PATH"
             
+            # Fix line 25 - compileSdkVersion
+            sed -i.bak '25s/.*/    compileSdkVersion 36/' "$PLUGIN_PATH"
+            
+            # Add defaultConfig if missing
             if ! grep -q "defaultConfig" "$PLUGIN_PATH"; then
               echo "" >> "$PLUGIN_PATH"
               echo "    defaultConfig {" >> "$PLUGIN_PATH"
               echo "        minSdkVersion 23" >> "$PLUGIN_PATH"
+              echo "        targetSdkVersion 36" >> "$PLUGIN_PATH"
               echo "    }" >> "$PLUGIN_PATH"
             fi
             
             echo "Plugin patched successfully!"
+            cat "$PLUGIN_PATH"
           else
-            echo "Plugin not found at $PLUGIN_PATH"
+            echo "Plugin not found - checking all pub-cache..."
+            find "$HOME/.pub-cache/hosted/pub.dev" -name "sqflite_sqlcipher*" -type d
           fi
       
       - name: Make gradlew executable

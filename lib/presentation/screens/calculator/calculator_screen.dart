@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cover/presentation/screens/calculator/calculator_controller.dart';
 import 'package:cover/core/pin/pin_state_machine.dart';
+import 'package:cover/core/vault/vault_service.dart';
+import 'package:cover/core/di/di_container.dart';
+import 'package:cover/core/utils/logger.dart';
 import 'package:go_router/go_router.dart';
 
 class CalculatorScreen extends ConsumerStatefulWidget {
@@ -32,7 +35,7 @@ class _CalculatorScreenState extends ConsumerState<CalculatorScreen> {
     }
   }
 
-  void _checkForPinPattern() {
+  Future<void> _checkForPinPattern() async {
     final state = ref.read(calculatorControllerProvider);
     final pinStateMachine = ref.read(pinStateMachineProvider.notifier);
     
@@ -41,7 +44,26 @@ class _CalculatorScreenState extends ConsumerState<CalculatorScreen> {
     if (matched) {
       final pinInfo = pinStateMachine.state;
       if (pinInfo.state == PinEntryState.matched) {
-        // Navigate to vault based on vault type
+        // Validate the PIN against the stored hash before opening the vault
+        try {
+          final vaultService = await ref.read(vaultServiceProvider.future);
+          final namespace = pinInfo.vaultType == VaultType.decoy
+              ? VaultNamespace.decoy
+              : VaultNamespace.real;
+          final isValid = await vaultService.verifyPin(pinInfo.pin!, namespace: namespace);
+          
+          if (!isValid) {
+            await pinStateMachine.recordFailedAttempt();
+            AppLogger.warning('Invalid PIN entered for ${pinInfo.vaultType} vault');
+            return;
+          }
+        } catch (e, stackTrace) {
+          AppLogger.error('PIN verification failed', e, stackTrace);
+          await pinStateMachine.recordFailedAttempt();
+          return;
+        }
+        
+        // PIN is valid — navigate to vault
         _navigateToVault(pinInfo.vaultType);
       }
     }

@@ -8,12 +8,9 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.4.0'  // ← KEEP IT HERE
+        classpath 'com.google.gms:google-services:4.4.0'
     }
 }
-
-// REMOVE this line from here if it exists:
-// apply plugin: 'com.google.gms.google-services'
 
 allprojects {
     repositories {

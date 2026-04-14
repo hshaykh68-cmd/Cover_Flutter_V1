@@ -58,7 +58,7 @@ class BiometricsServiceImpl implements BiometricsService {
   bool _enabled = false;
   BiometricPromptVariant _promptVariant = BiometricPromptVariant.afterFirstUnlock;
 
-  BiometricServiceImpl({
+  BiometricsServiceImpl({
     required LocalAuthentication localAuth,
     required AppConfig appConfig,
   }) : _localAuth = localAuth,

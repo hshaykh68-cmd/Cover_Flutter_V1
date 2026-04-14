@@ -63,7 +63,7 @@ void main() {
     });
 
     test('should handle special characters in password', () async {
-      final password = 'p@ssw0rd!#$%^&*()';
+      final password = r'p@ssw0rd!#$%^&*()';
       
       final result = await cryptoService.deriveKey(password);
 

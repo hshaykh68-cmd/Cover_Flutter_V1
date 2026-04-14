@@ -178,7 +178,7 @@ class AppTheme {
       labelSmall: footnote,
       titleSmall: caption1,
       titleMedium: caption2,
-    ),
+    );
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(

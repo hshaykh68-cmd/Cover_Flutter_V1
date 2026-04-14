@@ -18,6 +18,11 @@ workflows:
         script: |
           flutter pub get
       
+      # Analyze code for syntax errors and issues
+      - name: Analyze code
+        script: |
+          flutter analyze
+      
       # Generate code (Riverpod, Freezed, drift)
       - name: Generate code
         script: |

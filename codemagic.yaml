@@ -18,35 +18,27 @@ workflows:
         script: |
           flutter pub get
       
-      # Step 2: Generate Gradle Wrapper
+      # Step 2: Generate Gradle wrapper using Gradle itself
       - name: Setup Gradle
         script: |
           cd android
           
-          # Create gradle wrapper directory
+          # Download gradle-wrapper.jar
           mkdir -p gradle/wrapper
-          
-          # Download gradle-wrapper.jar from official source
           curl -L -o gradle/wrapper/gradle-wrapper.jar \
-            https://raw.githubusercontent.com/gradle/gradle/v8.0.2/gradle/wrapper/gradle-wrapper.jar
+            https://github.com/gradle/gradle/raw/v8.0.2/gradle/wrapper/gradle-wrapper.jar
           
-          # Create gradle-wrapper.properties
-          cat > gradle/wrapper/gradle-wrapper.properties << 'EOF'
-          distributionBase=GRADLE_USER_HOME
-          distributionPath=wrapper/dists
-          zipStoreBase=GRADLE_USER_HOME
-          zipStorePath=wrapper/dists
-          distributionUrl=https\://services.gradle.org/distributions/gradle-8.0.2-all.zip
-          EOF
+          # Create properties file
+          echo "distributionBase=GRADLE_USER_HOME" > gradle/wrapper/gradle-wrapper.properties
+          echo "distributionPath=wrapper/dists" >> gradle/wrapper/gradle-wrapper.properties
+          echo "zipStoreBase=GRADLE_USER_HOME" >> gradle/wrapper/gradle-wrapper.properties
+          echo "zipStorePath=wrapper/dists" >> gradle/wrapper/gradle-wrapper.properties
+          echo "distributionUrl=https\\://services.gradle.org/distributions/gradle-8.0.2-bin.zip" >> gradle/wrapper/gradle-wrapper.properties
           
-          # Create gradlew script
-          cat > gradlew << 'EOF'
-          #!/bin/sh
-          exec "`dirname "$0"`/gradle/wrapper/gradle" "$@"
-          EOF
+          # Generate gradlew using java
+          java -jar gradle/wrapper/gradle-wrapper.jar wrapper --gradle-version 8.0.2 2>/dev/null || true
           
-          chmod +x gradlew
-          
+          chmod +x gradlew 2>/dev/null || true
           cd ..
       
       # Step 3: Generate code

@@ -455,7 +455,8 @@ Future<VaultService> vaultService(VaultServiceRef ref) async {
 // PIN State Machine Provider
 @Riverpod(keepAlive: true)
 PinStateMachine pinStateMachine(PinStateMachineRef ref) {
-  return PinStateMachine();
+  final secureStorage = ref.watch(secureKeyStorageProvider);
+  return PinStateMachine(secureStorage: secureStorage);
 }
 
 // PIN Lockout Manager Provider

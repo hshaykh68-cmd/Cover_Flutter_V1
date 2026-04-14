@@ -6,7 +6,6 @@ import 'package:cover/presentation/screens/calculator/calculator_controller.dart
 import 'package:cover/core/pin/pin_state_machine.dart';
 import 'package:cover/core/vault/vault_service.dart';
 import 'package:cover/core/di/di_container.dart';
-import 'package:cover/core/utils/logger.dart';
 import 'package:go_router/go_router.dart';
 
 class CalculatorScreen extends ConsumerStatefulWidget {
@@ -35,35 +34,29 @@ class _CalculatorScreenState extends ConsumerState<CalculatorScreen> {
     }
   }
 
-  Future<void> _checkForPinPattern() async {
+  void _checkForPinPattern() async {
     final state = ref.read(calculatorControllerProvider);
     final pinStateMachine = ref.read(pinStateMachineProvider.notifier);
-    
+
     final matched = pinStateMachine.processDisplay(state.display);
-    
+
     if (matched) {
       final pinInfo = pinStateMachine.state;
       if (pinInfo.state == PinEntryState.matched) {
-        // Validate the PIN against the stored hash before opening the vault
-        try {
-          final vaultService = await ref.read(vaultServiceProvider.future);
-          final namespace = pinInfo.vaultType == VaultType.decoy
-              ? VaultNamespace.decoy
-              : VaultNamespace.real;
-          final isValid = await vaultService.verifyPin(pinInfo.pin!, namespace: namespace);
-          
-          if (!isValid) {
-            await pinStateMachine.recordFailedAttempt();
-            AppLogger.warning('Invalid PIN entered for ${pinInfo.vaultType} vault');
-            return;
-          }
-        } catch (e, stackTrace) {
-          AppLogger.error('PIN verification failed', e, stackTrace);
-          await pinStateMachine.recordFailedAttempt();
+        // SECURITY FIX: Validate the PIN before opening vault
+        final vaultService = await ref.read(vaultServiceProvider.future);
+        final namespace = pinInfo.vaultType == VaultType.decoy
+            ? VaultNamespace.decoy
+            : VaultNamespace.real;
+        final isValid = await vaultService.verifyPin(pinInfo.pin!, namespace: namespace);
+
+        if (!isValid) {
+          // PIN pattern matched but PIN is incorrect - record failed attempt
+          await ref.read(pinStateMachineProvider.notifier).recordFailedAttempt();
           return;
         }
-        
-        // PIN is valid — navigate to vault
+
+        // Navigate to vault based on vault type
         _navigateToVault(pinInfo.vaultType);
       }
     }

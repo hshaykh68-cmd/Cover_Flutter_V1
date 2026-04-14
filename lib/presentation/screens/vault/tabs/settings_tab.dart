@@ -98,7 +98,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab>
         padding: const EdgeInsets.all(16),
         children: [
           CupertinoListSection.insetGrouped(
-            backgroundColor: Colors.black,
+            backgroundColor: AppTheme.secondaryBackground,
             header: const Text(
               'SECURITY',
               style: TextStyle(
@@ -149,7 +149,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab>
           ),
           const SizedBox(height: 24),
           CupertinoListSection.insetGrouped(
-            backgroundColor: Colors.black,
+            backgroundColor: AppTheme.secondaryBackground,
             header: const Text(
               'GENERAL',
               style: TextStyle(
@@ -191,7 +191,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab>
           ),
           const SizedBox(height: 24),
           CupertinoListSection.insetGrouped(
-            backgroundColor: Colors.black,
+            backgroundColor: AppTheme.secondaryBackground,
             header: const Text(
               'ABOUT',
               style: TextStyle(
@@ -242,7 +242,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab>
           ),
           const SizedBox(height: 24),
           CupertinoListSection.insetGrouped(
-            backgroundColor: Colors.black,
+            backgroundColor: AppTheme.secondaryBackground,
             header: const Text(
               'DANGER ZONE',
               style: TextStyle(

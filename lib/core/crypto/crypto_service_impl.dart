@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'dart:convert';
+import 'dart:math';
 import 'package:cryptography/cryptography.dart';
 import 'package:cover/core/crypto/aes_gcm_cipher.dart';
 import 'package:cover/core/crypto/pbkdf2_key_deriver.dart';
@@ -164,5 +165,20 @@ class CryptoServiceImpl implements CryptoService {
     final pinBytes = utf8.encode(pin);
     final derivedKey = await _keyDeriver.deriveKeyWithSalt(pin, salt);
     return base64Encode(derivedKey);
+  }
+
+  @override
+  Future<EncryptedData> encryptBytes(Uint8List plaintext, Uint8List key, {
+    Uint8List? associatedData,
+    Uint8List? nonce,
+  }) async {
+    return await encrypt(plaintext, key, associatedData: associatedData, nonce: nonce);
+  }
+
+  @override
+  Future<Uint8List> decryptBytes(EncryptedData encryptedData, Uint8List key, {
+    Uint8List? associatedData,
+  }) async {
+    return await decrypt(encryptedData, key, associatedData: associatedData);
   }
 }

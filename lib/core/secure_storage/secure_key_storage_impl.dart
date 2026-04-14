@@ -139,6 +139,60 @@ class SecureKeyStorageImpl implements SecureKeyStorage {
     }
   }
 
+  @override
+  Future<void> storeString(String key, String value, {SecureStorageOptions? options}) async {
+    try {
+      final opts = options ?? _defaultOptions;
+      
+      // Store with optional iOS accessibility
+      final iosOptions = opts.iosAccessibility != null
+          ? IOSOptions(
+              accessibility: _parseAccessibility(opts.iosAccessibility!),
+            )
+          : null;
+
+      final androidOptions = opts.useAndroidKeystore != null
+          ? AndroidOptions(
+              encryptedSharedPreferences: opts.useAndroidKeystore!,
+            )
+          : null;
+
+      if (iosOptions != null || androidOptions != null) {
+        await _secureStorage.write(
+          key: key,
+          value: value,
+          iOptions: iosOptions,
+          aOptions: androidOptions,
+        );
+      } else {
+        await _secureStorage.write(key: key, value: value);
+      }
+      
+      AppLogger.debug('Stored string securely: $key');
+    } catch (e, stackTrace) {
+      AppLogger.error('Failed to store string: $key', e, stackTrace);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String?> retrieveString(String key) async {
+    try {
+      final value = await _secureStorage.read(key: key);
+      
+      if (value == null) {
+        AppLogger.debug('String not found: $key');
+        return null;
+      }
+      
+      AppLogger.debug('Retrieved string securely: $key');
+      return value;
+    } catch (e, stackTrace) {
+      AppLogger.error('Failed to retrieve string: $key', e, stackTrace);
+      rethrow;
+    }
+  }
+
   KeychainAccessibility _parseAccessibility(String accessibility) {
     switch (accessibility.toLowerCase()) {
       case 'whenunlocked':

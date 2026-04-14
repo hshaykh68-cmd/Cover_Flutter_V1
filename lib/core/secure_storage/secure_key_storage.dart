@@ -50,6 +50,22 @@ abstract class SecureKeyStorage {
   /// 
   /// Returns a list of key identifiers
   Future<List<String>> listKeys();
+
+  /// Stores a string value securely
+  /// 
+  /// Parameters:
+  /// - [key]: The key identifier
+  /// - [value]: The string value to store
+  /// - [options]: Optional storage options
+  Future<void> storeString(String key, String value, {SecureStorageOptions? options});
+
+  /// Retrieves a string value securely
+  /// 
+  /// Parameters:
+  /// - [key]: The key identifier
+  /// 
+  /// Returns the string value, or null if not found
+  Future<String?> retrieveString(String key);
 }
 
 /// Storage options for secure key storage

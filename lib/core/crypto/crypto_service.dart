@@ -83,4 +83,19 @@ abstract class CryptoService {
   /// 
   /// Returns the hashed PIN as base64 string
   Future<String> hashPin(String pin, Uint8List salt);
+
+  /// Encrypts raw bytes directly (returns EncryptedData wrapper)
+  /// 
+  /// Convenience method that wraps encrypt() for byte-only operations
+  Future<EncryptedData> encryptBytes(Uint8List plaintext, Uint8List key, {
+    Uint8List? associatedData,
+    Uint8List? nonce,
+  });
+
+  /// Decrypts raw bytes directly (from EncryptedData wrapper)
+  /// 
+  /// Convenience method that wraps decrypt() for byte-only operations
+  Future<Uint8List> decryptBytes(EncryptedData encryptedData, Uint8List key, {
+    Uint8List? associatedData,
+  });
 }

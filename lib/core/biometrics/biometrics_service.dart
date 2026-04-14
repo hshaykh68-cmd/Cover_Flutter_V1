@@ -22,7 +22,6 @@ abstract class BiometricsService {
   /// Returns true if authentication succeeded
   Future<bool> authenticate({
     String? localizedReason,
-    bool useErrorDialogs = true,
     bool stickyAuth = false,
     bool biometricOnly = false,
   });
@@ -94,7 +93,6 @@ class BiometricsServiceImpl implements BiometricsService {
   @override
   Future<bool> authenticate({
     String? localizedReason,
-    bool useErrorDialogs = true,
     bool stickyAuth = false,
     bool biometricOnly = false,
   }) async {
@@ -107,7 +105,6 @@ class BiometricsServiceImpl implements BiometricsService {
 
       final didAuthenticate = await _localAuth.authenticate(
         localizedReason: reason,
-        useErrorDialogs: useErrorDialogs,
         stickyAuth: stickyAuth,
         biometricOnly: biometricOnly,
       );

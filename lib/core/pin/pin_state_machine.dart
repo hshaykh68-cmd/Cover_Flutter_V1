@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cover/core/pin/pin_pattern_detector.dart';
 import 'package:cover/core/pin/pin_lockout_manager.dart';
+import 'package:cover/core/secure_storage/secure_key_storage.dart';
+import 'package:cover/core/di/di_container.dart';
 import 'package:cover/core/utils/logger.dart';
 
 enum PinEntryState {
@@ -45,8 +47,9 @@ class PinStateMachine extends StateNotifier<PinStateInfo> {
   PinStateMachine({
     PinPatternDetector? detector,
     PinLockoutManager? lockoutManager,
+    required SecureKeyStorage secureStorage,
   })  : _detector = detector ?? PinPatternDetector(),
-        _lockoutManager = lockoutManager ?? PinLockoutManager(),
+        _lockoutManager = lockoutManager ?? PinLockoutManager(secureStorage: secureStorage),
         super(const PinStateInfo(
           state: PinEntryState.idle,
           vaultType: VaultType.none,
@@ -148,7 +151,8 @@ class PinStateMachine extends StateNotifier<PinStateInfo> {
 
 // Provider for PIN state machine
 final pinStateMachineProvider = StateNotifierProvider<PinStateMachine, PinStateInfo>((ref) {
-  return PinStateMachine();
+  final secureStorage = ref.watch(secureKeyStorageProvider);
+  return PinStateMachine(secureStorage: secureStorage);
 });
 
 // Provider for lockout manager (separate for direct access if needed)

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cover/core/utils/logger.dart';
 import 'package:cover/core/config/app_config.dart';
 import 'package:cover/core/billing/regional_pricing_service.dart';
@@ -26,7 +27,6 @@ class SubscriptionProduct {
   final String description;
   final String price;
   final SubscriptionTier tier;
-  final String? subscriptionPeriod;
 
   SubscriptionProduct({
     required this.productId,
@@ -34,7 +34,6 @@ class SubscriptionProduct {
     required this.description,
     required this.price,
     required this.tier,
-    this.subscriptionPeriod,
   });
 
   factory SubscriptionProduct.fromProductDetails(ProductDetails details, SubscriptionTier tier) {
@@ -44,7 +43,6 @@ class SubscriptionProduct {
       description: details.description,
       price: details.price,
       tier: tier,
-      subscriptionPeriod: details.subscriptionPeriod,
     );
   }
 }
@@ -192,13 +190,13 @@ class SubscriptionServiceImpl implements SubscriptionService {
   Stream<EntitlementStatus> get entitlementStatusStream => _entitlementStatusController.stream;
 
   @override
-  Future<void> initialize() async {
-    if (_isInitialized) return;
+  Future<bool> initialize() async {
+    if (_isInitialized) return true;
 
     _isAvailable = await _inAppPurchase.isAvailable();
     if (!_isAvailable) {
       AppLogger.warning('In-app purchases not available on this device');
-      return;
+      return false;
     }
 
     // Listen to purchase updates
@@ -216,6 +214,7 @@ class SubscriptionServiceImpl implements SubscriptionService {
 
     _isInitialized = true;
     AppLogger.info('Subscription service initialized');
+    return true;
   }
 
   /// Load subscription state from Firestore
@@ -240,32 +239,28 @@ class SubscriptionServiceImpl implements SubscriptionService {
   }
 
   /// Map Firestore tier to SubscriptionTier
-  SubscriptionTier _mapFirestoreTier(SubscriptionFirestoreModel.SubscriptionTier firestoreTier) {
+  SubscriptionTier _mapFirestoreTier(SubscriptionTier firestoreTier) {
     switch (firestoreTier) {
-      case SubscriptionFirestoreModel.SubscriptionTier.monthly:
+      case SubscriptionTier.monthly:
         return SubscriptionTier.monthly;
-      case SubscriptionFirestoreModel.SubscriptionTier.yearly:
+      case SubscriptionTier.yearly:
         return SubscriptionTier.yearly;
-      case SubscriptionFirestoreModel.SubscriptionTier.lifetime:
+      case SubscriptionTier.lifetime:
         return SubscriptionTier.lifetime;
-      case SubscriptionFirestoreModel.SubscriptionTier.free:
+      case SubscriptionTier.free:
         return SubscriptionTier.free;
     }
   }
 
   Future<void> _loadExistingPurchases() async {
     try {
-      // Query for past purchases
-      final response = await _inAppPurchase.queryPastPurchases();
+      // Query for past purchases using restorePurchases
+      await _inAppPurchase.restorePurchases();
       
-      for (final purchase in response.pastPurchases) {
-        if (purchase.status == PurchaseStatus.purchased || 
-            purchase.status == PurchaseStatus.restored) {
-          await _handleSuccessfulPurchase(purchase);
-        }
-      }
+      // Wait a moment for purchases to be restored
+      await Future.delayed(const Duration(seconds: 2));
 
-      AppLogger.info('Loaded ${response.pastPurchases.length} existing purchases');
+      AppLogger.info('Attempted to restore existing purchases');
     } catch (e, stackTrace) {
       AppLogger.error('Failed to load existing purchases', e, stackTrace);
     }
@@ -549,16 +544,16 @@ class SubscriptionServiceImpl implements SubscriptionService {
   }
 
   /// Map SubscriptionTier to Firestore tier
-  SubscriptionFirestoreModel.SubscriptionTier _mapToFirestoreTier(SubscriptionTier tier) {
+  SubscriptionTier _mapToFirestoreTier(SubscriptionTier tier) {
     switch (tier) {
       case SubscriptionTier.monthly:
-        return SubscriptionFirestoreModel.SubscriptionTier.monthly;
+        return SubscriptionTier.monthly;
       case SubscriptionTier.yearly:
-        return SubscriptionFirestoreModel.SubscriptionTier.yearly;
+        return SubscriptionTier.yearly;
       case SubscriptionTier.lifetime:
-        return SubscriptionFirestoreModel.SubscriptionTier.lifetime;
+        return SubscriptionTier.lifetime;
       case SubscriptionTier.free:
-        return SubscriptionFirestoreModel.SubscriptionTier.free;
+        return SubscriptionTier.free;
     }
   }
 

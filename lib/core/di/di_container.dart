@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:cover/core/crypto/crypto_service.dart';
 import 'package:cover/core/crypto/crypto_service_impl.dart';
@@ -64,6 +65,7 @@ import 'package:cover/data/repository/remote_config_repository_impl.dart';
 import 'package:cover/data/repository/file_repository_impl.dart';
 import 'package:cover/data/local/database/daos/file_dao.dart';
 import 'package:cover/presentation/screens/vault/vault_shell_screen.dart';
+import 'package:cover/presentation/navigation/app_router.dart';
 
 // This file will contain all dependency injection setup
 // It will be populated as we implement each phase

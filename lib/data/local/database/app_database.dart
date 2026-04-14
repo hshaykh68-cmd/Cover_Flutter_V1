@@ -46,15 +46,15 @@ class AppDatabase extends _$AppDatabase {
         
         // Create all tables
         await m.createAll();
-        
-        // Create indexes for performance
-        await m.createIndex(Index('idx_users_vault_id', const [Reference('users', 'vaultId')]));
-        await m.createIndex(Index('idx_media_items_vault_id', const [Reference('media_items', 'vaultId')]));
-        await m.createIndex(Index('idx_media_items_type', const [Reference('media_items', 'type')]));
-        await m.createIndex(Index('idx_notes_vault_id', const [Reference('notes', 'vaultId')]));
-        await m.createIndex(Index('idx_passwords_vault_id', const [Reference('passwords', 'vaultId')]));
-        await m.createIndex(Index('idx_contacts_vault_id', const [Reference('contacts', 'vaultId')]));
-        await m.createIndex(Index('idx_intruder_logs_timestamp', const [Reference('intruder_logs', 'timestamp')]));
+
+        // Create indexes for performance using SQL
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_users_vault_id ON users(vaultId)');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_media_items_vault_id ON media_items(vaultId)');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_media_items_type ON media_items(type)');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_notes_vault_id ON notes(vaultId)');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_passwords_vault_id ON passwords(vaultId)');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_contacts_vault_id ON contacts(vaultId)');
+        await customStatement('CREATE INDEX IF NOT EXISTS idx_intruder_logs_timestamp ON intruder_logs(timestamp)');
         
         AppLogger.info('Database schema created successfully');
       },

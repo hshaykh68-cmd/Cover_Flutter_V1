@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'core/theme/app_theme.dart';
-import 'core/di/di_container.dart';
-import 'core/utils/logger.dart';
-import 'presentation/navigation/app_router.dart';
+import 'package:cover/core/theme/app_theme.dart';
+import 'package:cover/core/di/di_container.dart';
+import 'package:cover/core/utils/logger.dart';
+import 'package:cover/presentation/navigation/app_router.dart';
 
 class CoverApp extends ConsumerStatefulWidget {
   const CoverApp({super.key});

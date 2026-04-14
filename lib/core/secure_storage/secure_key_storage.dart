@@ -125,7 +125,7 @@ class KeyRotationStrategy {
     maxKeyAgeDays: 365,
     rotateOnVersionChange: true,
     rotateOnCompromise: true,
-  });
+  );
 
   /// High-security rotation strategy (for sensitive data)
   static const highSecurityStrategy = KeyRotationStrategy(

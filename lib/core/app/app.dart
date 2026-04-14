@@ -5,7 +5,6 @@ import 'package:cover/core/theme/app_theme.dart';
 import 'package:cover/core/di/di_container.dart';
 import 'package:cover/core/utils/logger.dart';
 import 'package:cover/presentation/navigation/app_router.dart';
-import 'package:cover/presentation/navigation/app_router.g.dart';
 
 class CoverApp extends ConsumerStatefulWidget {
   const CoverApp({super.key});

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:cover/data/storage/secure_file_storage.dart';
 import 'package:cover/domain/repository/file_repository.dart';
 import 'package:cover/core/utils/logger.dart';
@@ -502,7 +503,7 @@ class _FileViewerWidgetState extends State<FileViewerWidget> {
   Widget build(BuildContext context) {
     if (_isLoading) {
       return const Center(
-        child: CircularProgressIndicator(color: Colors.white),
+        child: CupertinoActivityIndicator(color: Colors.white),
       );
     }
 
@@ -701,7 +702,7 @@ class _FileViewerWidgetState extends State<FileViewerWidget> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(color: Colors.white),
+            child: CupertinoActivityIndicator(color: Colors.white),
           );
         }
 
@@ -744,7 +745,7 @@ class _FileViewerWidgetState extends State<FileViewerWidget> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(color: Colors.white),
+            child: CupertinoActivityIndicator(color: Colors.white),
           );
         }
 
@@ -770,7 +771,7 @@ class _FileViewerWidgetState extends State<FileViewerWidget> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(color: Colors.white),
+            child: CupertinoActivityIndicator(color: Colors.white),
           );
         }
 
@@ -1158,7 +1159,7 @@ class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
   Widget build(BuildContext context) {
     if (!_isInitialized) {
       return const Center(
-        child: CircularProgressIndicator(color: Colors.white),
+        child: CupertinoActivityIndicator(color: Colors.white),
       );
     }
 

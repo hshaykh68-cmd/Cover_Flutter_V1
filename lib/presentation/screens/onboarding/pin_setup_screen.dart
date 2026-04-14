@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -363,7 +364,7 @@ class _DeleteButtonState extends State<_DeleteButton>
               ),
               child: const Center(
                 child: Icon(
-                  Icons.backspace,
+                  CupertinoIcons.delete_left,
                   size: 28,
                   color: AppTheme.secondaryLabel,
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cover/core/theme/app_theme.dart';
@@ -175,7 +176,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen>
         borderRadius: BorderRadius.circular(20),
       ),
       child: const Icon(
-        Icons.calculate,
+        CupertinoIcons.number,
         size: 60,
         color: AppTheme.secondaryLabel,
       ),
@@ -191,13 +192,13 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen>
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppTheme.systemBlue.withOpacity(0.2),
-            AppTheme.systemPurple.withOpacity(0.2),
+            AppTheme.systemBlue.withValues(alpha: 0.2),
+            AppTheme.systemPurple.withValues(alpha: 0.2),
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppTheme.systemBlue.withOpacity(0.5),
+          color: AppTheme.systemBlue.withValues(alpha: 0.5),
           width: 2,
         ),
       ),

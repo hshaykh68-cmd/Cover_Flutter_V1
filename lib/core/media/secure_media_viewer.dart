@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:video_player/video_player.dart';
 import 'package:cover/data/storage/secure_file_storage.dart';
 import 'package:cover/domain/repository/media_item_repository.dart';
@@ -276,7 +277,7 @@ class _SecureImageViewerState extends State<SecureImageViewer> {
   Widget build(BuildContext context) {
     if (_isLoading) {
       return const Center(
-        child: CircularProgressIndicator(color: Colors.white),
+        child: CupertinoActivityIndicator(color: Colors.white),
       );
     }
 
@@ -387,7 +388,7 @@ class _SecureVideoViewerState extends State<SecureVideoViewer> {
   Widget build(BuildContext context) {
     if (_isLoading) {
       return const Center(
-        child: CircularProgressIndicator(color: Colors.white),
+        child: CupertinoActivityIndicator(color: Colors.white),
       );
     }
 
@@ -493,7 +494,7 @@ class _SecureVideoPlayerWithControlsState extends State<SecureVideoPlayerWithCon
   Widget build(BuildContext context) {
     if (_isLoading) {
       return const Center(
-        child: CircularProgressIndicator(color: Colors.white),
+        child: CupertinoActivityIndicator(color: Colors.white),
       );
     }
 

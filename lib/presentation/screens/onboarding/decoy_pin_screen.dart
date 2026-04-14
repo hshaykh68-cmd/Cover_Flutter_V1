@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -108,7 +109,7 @@ class _DecoyPinScreenState extends ConsumerState<DecoyPinScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: AppTheme.secondaryLabel),
+          icon: const Icon(CupertinoIcons.xmark, color: AppTheme.secondaryLabel),
           onPressed: _skipDecoyPin,
         ),
       ),
@@ -413,7 +414,7 @@ class _DeleteButtonState extends State<_DeleteButton>
               ),
               child: const Center(
                 child: Icon(
-                  Icons.backspace,
+                  CupertinoIcons.delete_left,
                   size: 28,
                   color: AppTheme.secondaryLabel,
                 ),

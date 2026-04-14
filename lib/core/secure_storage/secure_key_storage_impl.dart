@@ -18,7 +18,7 @@ class SecureKeyStorageImpl implements SecureKeyStorage {
 
   SecureKeyStorageImpl({
     FlutterSecureStorage? secureStorage,
-    SecureStorageOptions defaultOptions = const SecureStorageOptions.masterKey,
+    SecureStorageOptions defaultOptions = SecureStorageOptions.masterKey,
   })  : _secureStorage = secureStorage ??
             const FlutterSecureStorage(
               aOptions: AndroidOptions(

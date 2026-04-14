@@ -18,20 +18,28 @@ workflows:
         script: |
           flutter pub get
       
-      # Step 2: Generate code FIRST (creates .g.dart files needed for analysis)
+      # Step 2: Download Gradle Wrapper JAR
+      - name: Download Gradle Wrapper JAR
+        script: |
+          mkdir -p android/gradle/wrapper
+          curl -L -o android/gradle/wrapper/gradle-wrapper.jar \
+            https://github.com/gradle/gradle/raw/v7.6.3/gradle/wrapper/gradle-wrapper.jar
+          chmod +x android/gradlew
+      
+      # Step 3: Generate code
       - name: Generate code
         script: |
           flutter pub run build_runner build --delete-conflicting-outputs
       
-      # Step 3: Analyze code AFTER generated files exist
+      # Step 4: Analyze code
       - name: Analyze code
         script: |
           flutter analyze --no-fatal-infos || true
       
-      # Step 4: Build Android Debug APK
+      # Step 5: Build Android Debug APK
       - name: Build Android Debug APK
         script: |
           flutter build apk --debug
     
     artifacts:
-      - build/app/outputs/flutter-apk/app-debug.apk
+      - build/app/outputs/flutter-apk/Cover_debug.apk

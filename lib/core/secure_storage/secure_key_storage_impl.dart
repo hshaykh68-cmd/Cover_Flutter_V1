@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:cover/core/secure_storage/secure_key_storage.dart';
@@ -17,14 +18,14 @@ class SecureKeyStorageImpl implements SecureKeyStorage {
 
   SecureKeyStorageImpl({
     FlutterSecureStorage? secureStorage,
-    SecureStorageOptions defaultOptions = SecureStorageOptions.masterKey,
+    SecureStorageOptions defaultOptions = const SecureStorageOptions.masterKey,
   })  : _secureStorage = secureStorage ??
             const FlutterSecureStorage(
               aOptions: AndroidOptions(
                 encryptedSharedPreferences: true,
               ),
               iOptions: IOSOptions(
-                accessibility: KeychainAccessibility.whenUnlockedThisDeviceOnly,
+                accessibility: IOSOptionsAccessibility.whenUnlockedThisDeviceOnly,
               ),
             ),
         _defaultOptions = defaultOptions;
@@ -39,7 +40,7 @@ class SecureKeyStorageImpl implements SecureKeyStorage {
       final opts = options ?? _defaultOptions;
       
       // Convert bytes to base64 for storage
-      final base64Value = value.buffer.asUint8List().base64Encode();
+      final base64Value = base64Encode(value);
       
       // Store with optional iOS accessibility
       final iosOptions = opts.iosAccessibility != null
@@ -86,7 +87,7 @@ class SecureKeyStorageImpl implements SecureKeyStorage {
       final value = base64Decode(base64Value);
       
       AppLogger.debug('Retrieved key securely: $key');
-      return value;
+      return Uint8List.fromList(value);
     } catch (e, stackTrace) {
       AppLogger.error('Failed to retrieve key: $key', e, stackTrace);
       rethrow;
@@ -193,26 +194,26 @@ class SecureKeyStorageImpl implements SecureKeyStorage {
     }
   }
 
-  KeychainAccessibility _parseAccessibility(String accessibility) {
+  IOSOptionsAccessibility _parseAccessibility(String accessibility) {
     switch (accessibility.toLowerCase()) {
       case 'whenunlocked':
-        return KeychainAccessibility.whenUnlocked;
+        return IOSOptionsAccessibility.whenUnlocked;
       case 'whenunlockedthisdeviceonly':
-        return KeychainAccessibility.whenUnlockedThisDeviceOnly;
+        return IOSOptionsAccessibility.whenUnlockedThisDeviceOnly;
       case 'whenfirstunlock':
-        return KeychainAccessibility.whenFirstUnlock;
+        return IOSOptionsAccessibility.whenFirstUnlock;
       case 'whenfirstunlockthisdeviceonly':
-        return KeychainAccessibility.whenFirstUnlockThisDeviceOnly;
+        return IOSOptionsAccessibility.whenFirstUnlockThisDeviceOnly;
       case 'always':
-        return KeychainAccessibility.always;
+        return IOSOptionsAccessibility.always;
       case 'alwayswithdevicepasscode':
-        return KeychainAccessibility.alwaysWithDevicePasscode;
+        return IOSOptionsAccessibility.alwaysWithDevicePasscode;
       case 'afterfirstunlock':
-        return KeychainAccessibility.afterFirstUnlock;
+        return IOSOptionsAccessibility.afterFirstUnlock;
       case 'afterfirstunlockthisdeviceonly':
-        return KeychainAccessibility.afterFirstUnlockThisDeviceOnly;
+        return IOSOptionsAccessibility.afterFirstUnlockThisDeviceOnly;
       default:
-        return KeychainAccessibility.whenUnlockedThisDeviceOnly;
+        return IOSOptionsAccessibility.whenUnlockedThisDeviceOnly;
     }
   }
 }

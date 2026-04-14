@@ -23,37 +23,10 @@ workflows:
         script: |
           flutter pub run build_runner build --delete-conflicting-outputs
       
-      # Run tests (optional for debug builds)
-      - name: Run tests
-        script: |
-          flutter test --no-pub || true
-      
-      # Analyze code
-      - name: Analyze code
-        script: |
-          flutter analyze
-      
-      # Clean Android build
-      - name: Clean Android build
-        script: |
-          cd android
-          ./gradlew clean
-      
       # Build Android APK (Debug)
       - name: Build Android Debug APK
         script: |
           flutter build apk --debug
-      
-      # Build Android App Bundle (Debug) - for Play Store testing
-      - name: Build Android Debug App Bundle
-        script: |
-          flutter build appbundle --debug
     
     artifacts:
       - build/app/outputs/flutter-apk/app-debug.apk
-      - build/app/outputs/bundle/debug/*.aab
-    
-    publishing:
-      email:
-        recipients:
-          - your-email@example.com

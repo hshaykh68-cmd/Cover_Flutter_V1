@@ -24,8 +24,8 @@ class SecureKeyStorageImpl implements SecureKeyStorage {
               aOptions: AndroidOptions(
                 encryptedSharedPreferences: true,
               ),
-              iOptions: IOSOptions(
-                accessibility: IOSOptionsAccessibility.whenUnlockedThisDeviceOnly,
+              iOptions: const IOSOptions(
+                accessibility: KeychainAccessibility.whenUnlockedThisDeviceOnly,
               ),
             ),
         _defaultOptions = defaultOptions;
@@ -194,26 +194,26 @@ class SecureKeyStorageImpl implements SecureKeyStorage {
     }
   }
 
-  IOSOptionsAccessibility _parseAccessibility(String accessibility) {
+  KeychainAccessibility _parseAccessibility(String accessibility) {
     switch (accessibility.toLowerCase()) {
       case 'whenunlocked':
-        return IOSOptionsAccessibility.whenUnlocked;
+        return KeychainAccessibility.whenUnlocked;
       case 'whenunlockedthisdeviceonly':
-        return IOSOptionsAccessibility.whenUnlockedThisDeviceOnly;
+        return KeychainAccessibility.whenUnlockedThisDeviceOnly;
       case 'whenfirstunlock':
-        return IOSOptionsAccessibility.whenFirstUnlock;
+        return KeychainAccessibility.first_unlock;
       case 'whenfirstunlockthisdeviceonly':
-        return IOSOptionsAccessibility.whenFirstUnlockThisDeviceOnly;
+        return KeychainAccessibility.first_unlock_this_device;
       case 'always':
-        return IOSOptionsAccessibility.always;
+        return KeychainAccessibility.always;
       case 'alwayswithdevicepasscode':
-        return IOSOptionsAccessibility.alwaysWithDevicePasscode;
+        return KeychainAccessibility.after_first_unlock_this_device;
       case 'afterfirstunlock':
-        return IOSOptionsAccessibility.afterFirstUnlock;
+        return KeychainAccessibility.after_first_unlock;
       case 'afterfirstunlockthisdeviceonly':
-        return IOSOptionsAccessibility.afterFirstUnlockThisDeviceOnly;
+        return KeychainAccessibility.after_first_unlock_this_device;
       default:
-        return IOSOptionsAccessibility.whenUnlockedThisDeviceOnly;
+        return KeychainAccessibility.whenUnlockedThisDeviceOnly;
     }
   }
 }

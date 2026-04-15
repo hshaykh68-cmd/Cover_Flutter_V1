@@ -119,7 +119,7 @@ class _GalleryTabState extends ConsumerState<GalleryTab>
           Icon(
             CupertinoIcons.photo_on_rectangle,
             size: 72,
-            color: Colors.white.withValues(alpha: 0.15),
+            color: Colors.white.withOpacity(0.15),
           ),
           const SizedBox(height: 20),
           const Text(
@@ -135,7 +135,7 @@ class _GalleryTabState extends ConsumerState<GalleryTab>
           Text(
             'Import photos to keep them private.',
             style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.5),
+              color: Colors.white.withOpacity(0.5),
               fontSize: 15,
             ),
           ),

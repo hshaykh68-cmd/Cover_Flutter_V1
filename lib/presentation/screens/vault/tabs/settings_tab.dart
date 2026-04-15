@@ -120,7 +120,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab>
               ),
               if (_biometricsAvailable)
                 CupertinoListTile(
-                  leading: const Icon(CupertinoIcons.faceid, color: CupertinoColors.systemBlue),
+                  leading: const Icon(CupertinoIcons.person_crop_circle, color: CupertinoColors.systemBlue),
                   title: const Text('Face ID / Fingerprint'),
                   trailing: CupertinoSwitch(
                     value: _biometricsEnabled,
@@ -212,7 +212,7 @@ class _SettingsTabState extends ConsumerState<SettingsTab>
                 },
               ),
               CupertinoListTile(
-                leading: const Icon(CupertinoIcons.gavel, color: CupertinoColors.systemBlue),
+                leading: const Icon(CupertinoIcons.hammer, color: CupertinoColors.systemBlue),
                 title: const Text('Terms & Conditions'),
                 trailing: const CupertinoListTileChevron(),
                 onTap: () {

@@ -154,11 +154,13 @@ class SubscriptionServiceImpl implements SubscriptionService {
     RegionalPricingService? regionalPricingService,
     SubscriptionFirestoreRepository? firestoreRepository,
     PurchaseVerifier? purchaseVerifier,
+    FirebaseAuth? auth,
   }) : _inAppPurchase = inAppPurchase ?? InAppPurchase.instance,
         _appConfig = appConfig,
         _regionalPricingService = regionalPricingService,
         _firestoreRepository = firestoreRepository,
-        _purchaseVerifier = purchaseVerifier {
+        _purchaseVerifier = purchaseVerifier,
+        _auth = auth ?? FirebaseAuth.instance {
     _initializePlatformSpecific();
   }
 

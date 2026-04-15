@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:cover/data/local/database/tables.dart';
 import 'package:cover/domain/repository/contact_repository.dart';
 import 'package:cover/core/crypto/crypto_service.dart';

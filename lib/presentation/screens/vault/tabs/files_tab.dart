@@ -90,7 +90,7 @@ class _FilesTabState extends State<FilesTab>
           Icon(
             CupertinoIcons.folder,
             size: 72,
-            color: Colors.white.withValues(alpha: 0.15),
+            color: Colors.white.withOpacity(0.15),
           ),
           const SizedBox(height: 20),
           const Text(
@@ -106,7 +106,7 @@ class _FilesTabState extends State<FilesTab>
           Text(
             'Import files to keep them private.',
             style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.5),
+              color: Colors.white.withOpacity(0.5),
               fontSize: 15,
             ),
           ),

@@ -115,11 +115,11 @@ class CryptoServiceImpl implements CryptoService {
   }
 
   @override
-  Uint8List sha256Hash(Uint8List data) {
+  Future<Uint8List> sha256Hash(Uint8List data) async {
     try {
       final algorithm = Sha256();
-      final hash = algorithm.hashSync(data);
-      return hash.bytes;
+      final hash = await algorithm.hash(data);
+      return Uint8List.fromList(hash.bytes);
     } catch (e, stackTrace) {
       AppLogger.error('SHA-256 hashing failed', e, stackTrace);
       rethrow;

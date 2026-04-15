@@ -242,7 +242,7 @@ class _CustomBottomNavigationBar extends StatelessWidget {
         child: Container(
           height: 88,
           decoration: BoxDecoration(
-            color: Colors.black.withValues(alpha: 0.65),
+            color: Colors.black.withOpacity(0.65),
             border: Border(
               top: BorderSide(
                 color: const Color(0x33545458), // separator color

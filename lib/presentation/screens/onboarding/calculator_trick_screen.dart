@@ -182,13 +182,13 @@ class _CalculatorTrickScreenState extends ConsumerState<CalculatorTrickScreen>
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
                                     colors: [
-                                      AppTheme.systemBlue.withValues(alpha: 0.3),
-                                      AppTheme.systemPurple.withValues(alpha: 0.3),
+                                      AppTheme.systemBlue.withOpacity(0.3),
+                                      AppTheme.systemPurple.withOpacity(0.3),
                                     ],
                                   ),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
-                                    color: AppTheme.systemBlue.withValues(alpha: 0.6),
+                                    color: AppTheme.systemBlue.withOpacity(0.6),
                                     width: 2,
                                   ),
                                 ),

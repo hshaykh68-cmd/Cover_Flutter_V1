@@ -19,7 +19,7 @@ class RegionalPricingConfig {
 class RegionalPricingService {
   final AppConfig _appConfig;
 
-  RegionalPricingService(this._appConfig);
+  RegionalPricingService({required AppConfig appConfig}) : _appConfig = appConfig;
 
   // Countries eligible for 50% discount
   static const Set<String> _discountCountries = {

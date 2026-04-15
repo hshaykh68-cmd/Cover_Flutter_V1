@@ -146,7 +146,7 @@ class _NotesTabState extends ConsumerState<NotesTab>
                             Icon(
                               CupertinoIcons.doc_text,
                               size: 64,
-                              color: Colors.white.withValues(alpha: 0.12),
+                              color: Colors.white.withOpacity(0.12),
                             ),
                             const SizedBox(height: 16),
                             Text(

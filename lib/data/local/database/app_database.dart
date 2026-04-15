@@ -69,7 +69,7 @@ class AppDatabase extends _$AppDatabase {
         AppLogger.info('Database migration completed successfully');
       },
       beforeOpen: (OpeningDetails details) async {
-        AppLogger.debug('Opening database (schema version: ${details.version})');
+        AppLogger.debug('Opening database');
         
         // Enable foreign keys
         await customStatement('PRAGMA foreign_keys = ON');
@@ -159,7 +159,7 @@ class AppDatabaseFactory {
     return AppDatabase(
       LazyDatabase(() async {
         return NativeDatabase.createInBackground(
-          Database.inMemoryDatabasePath(),
+          ':memory:',
         );
       }),
       cryptoService,
@@ -175,9 +175,8 @@ class AppDatabaseFactory {
     AppLogger.info('Creating database at: ${file.path}');
 
     // Initialize SQLite3 Flutter Libs for SQLCipher
-    if (Platform.isAndroid || Platform.isIOS) {
+    if (Platform.isAndroid) {
       await applyWorkaroundToOpenSqlite3OnOldAndroidVersions();
-      sqlite3FlutterLibsInit();
     }
 
     final dbKey = await _secureStorage.retrieveKey('db_encryption_key');

@@ -121,8 +121,8 @@ class _PasswordsTabState extends ConsumerState<PasswordsTab>
               controller: _searchController,
               onChanged: _searchPasswords,
               style: const TextStyle(color: Colors.white),
-              placeholderStyle: TextStyle(color: Colors.white.withValues(alpha: 0.4)),
-              itemColor: Colors.white.withValues(alpha: 0.4),
+              placeholderStyle: TextStyle(color: Colors.white.withOpacity(0.4)),
+              itemColor: Colors.white.withOpacity(0.4),
               backgroundColor: const Color(0xFF2C2C2E),
             ),
           ),
@@ -139,7 +139,7 @@ class _PasswordsTabState extends ConsumerState<PasswordsTab>
                             Icon(
                               CupertinoIcons.lock_slash,
                               size: 64,
-                              color: Colors.white.withValues(alpha: 0.12),
+                              color: Colors.white.withOpacity(0.12),
                             ),
                             const SizedBox(height: 16),
                             Text(

@@ -182,7 +182,7 @@ class _PremiumScreenState extends ConsumerState<PremiumScreen>
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.systemOrange.withValues(alpha: 0.3),
+            color: AppTheme.systemOrange.withOpacity(0.3),
             blurRadius: 20,
             spreadRadius: 5,
           ),
@@ -218,7 +218,7 @@ class _PremiumScreenState extends ConsumerState<PremiumScreen>
         color: Colors.grey.shade900,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.08),
+          color: Colors.white.withOpacity(0.08),
           width: 1,
         ),
       ),
@@ -228,7 +228,7 @@ class _PremiumScreenState extends ConsumerState<PremiumScreen>
             width: 56,
             height: 56,
             decoration: BoxDecoration(
-              color: AppTheme.systemOrange.withValues(alpha: 0.15),
+              color: AppTheme.systemOrange.withOpacity(0.15),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Icon(
@@ -272,13 +272,13 @@ class _PremiumScreenState extends ConsumerState<PremiumScreen>
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.green.withValues(alpha: 0.2),
-            Colors.teal.withValues(alpha: 0.2),
+            Colors.green.withOpacity(0.2),
+            Colors.teal.withOpacity(0.2),
           ],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Colors.green.withValues(alpha: 0.5),
+          color: Colors.green.withOpacity(0.5),
           width: 1,
         ),
       ),
@@ -345,10 +345,10 @@ class _PremiumScreenState extends ConsumerState<PremiumScreen>
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: isPopular ? AppTheme.systemOrange.withValues(alpha: 0.15) : Colors.grey.shade900,
+          color: isPopular ? AppTheme.systemOrange.withOpacity(0.15) : Colors.grey.shade900,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isPopular ? AppTheme.systemOrange : Colors.white.withValues(alpha: 0.08),
+            color: isPopular ? AppTheme.systemOrange : Colors.white.withOpacity(0.08),
             width: isPopular ? 2 : 1,
           ),
         ),

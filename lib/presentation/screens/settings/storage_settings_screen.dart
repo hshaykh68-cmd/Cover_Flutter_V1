@@ -166,7 +166,7 @@ class _StorageSettingsScreenState extends ConsumerState<StorageSettingsScreen> {
                 ),
                 const SizedBox(height: 32),
                 Card(
-                  color: AppTheme.systemOrange.withValues(alpha: 0.1),
+                  color: AppTheme.systemOrange.withOpacity(0.1),
                   child: ListTile(
                     leading: const Icon(
                       CupertinoIcons.info_circle,
@@ -175,7 +175,7 @@ class _StorageSettingsScreenState extends ConsumerState<StorageSettingsScreen> {
                     title: Text(
                       'All data is stored locally on your device',
                       style: TextStyle(
-                        color: AppTheme.systemOrange.withValues(alpha: 0.8),
+                        color: AppTheme.systemOrange.withOpacity(0.8),
                         fontSize: 14,
                       ),
                     ),

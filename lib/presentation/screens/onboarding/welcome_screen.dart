@@ -192,13 +192,13 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen>
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppTheme.systemBlue.withValues(alpha: 0.2),
-            AppTheme.systemPurple.withValues(alpha: 0.2),
+            AppTheme.systemBlue.withOpacity(0.2),
+            AppTheme.systemPurple.withOpacity(0.2),
           ],
         ),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppTheme.systemBlue.withValues(alpha: 0.5),
+          color: AppTheme.systemBlue.withOpacity(0.5),
           width: 2,
         ),
       ),

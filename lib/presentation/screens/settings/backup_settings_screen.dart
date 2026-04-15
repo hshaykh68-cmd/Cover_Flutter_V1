@@ -204,7 +204,7 @@ class _BackupSettingsScreenState extends State<BackupSettingsScreen> {
           ),
           const SizedBox(height: 32),
           Card(
-            color: AppTheme.systemOrange.withValues(alpha: 0.1),
+            color: AppTheme.systemOrange.withOpacity(0.1),
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -224,7 +224,7 @@ class _BackupSettingsScreenState extends State<BackupSettingsScreen> {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: AppTheme.systemOrange.withValues(alpha: 0.8),
+                            color: AppTheme.systemOrange.withOpacity(0.8),
                           ),
                         ),
                       ),
@@ -235,7 +235,7 @@ class _BackupSettingsScreenState extends State<BackupSettingsScreen> {
                     'Backups are encrypted and can only be restored by you. Keep your backup files in a secure location.',
                     style: TextStyle(
                       fontSize: 12,
-                      color: AppTheme.systemOrange.withValues(alpha: 0.5),
+                      color: AppTheme.systemOrange.withOpacity(0.5),
                       height: 1.5,
                     ),
                   ),

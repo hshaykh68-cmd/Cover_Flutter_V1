@@ -395,7 +395,7 @@ class _IntruderLogsScreenState extends ConsumerState<IntruderLogsScreen>
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: _getEventTypeColor(log.eventType).withValues(alpha: 0.2),
+                  color: _getEventTypeColor(log.eventType).withOpacity(0.2),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
@@ -603,7 +603,7 @@ class _IntruderLogDetailScreenState
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: _getEventTypeColor(widget.log.eventType).withValues(alpha: 0.2),
+                  color: _getEventTypeColor(widget.log.eventType).withOpacity(0.2),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Icon(

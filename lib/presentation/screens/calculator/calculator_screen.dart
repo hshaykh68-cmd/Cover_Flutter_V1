@@ -100,7 +100,7 @@ class _CalculatorScreenState extends ConsumerState<CalculatorScreen> {
                         child: Text(
                           state.previousCalculation,
                           style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.5),
+                            color: Colors.white.withOpacity(0.5),
                             fontSize: 24,
                             fontWeight: FontWeight.w300,
                           ),

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:cover/core/crypto/aes_gcm_cipher.dart';
 import 'package:cover/core/crypto/pbkdf2_key_deriver.dart';
+import 'package:cover/core/crypto/encrypted_data.dart';
 
 /// Crypto service interface for all cryptographic operations
 /// 
@@ -68,7 +69,7 @@ abstract class CryptoService {
   Uint8List generateRandomNonce({int length = 12});
 
   /// Hashes data using SHA-256
-  Uint8List sha256Hash(Uint8List data);
+  Future<Uint8List> sha256Hash(Uint8List data);
 
   /// Constant-time comparison to prevent timing attacks
   bool constantTimeCompare(Uint8List a, Uint8List b);

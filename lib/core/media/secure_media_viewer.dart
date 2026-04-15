@@ -533,7 +533,7 @@ class _SecureVideoPlayerWithControlsState extends State<SecureVideoPlayerWithCon
             child: Center(
               child: Icon(
                 _controller!.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                color: Colors.white.withValues(alpha: 0.8),
+                color: Colors.white.withOpacity(0.8),
                 size: 64,
               ),
             ),
@@ -549,8 +549,8 @@ class _SecureVideoPlayerWithControlsState extends State<SecureVideoPlayerWithCon
             allowScrubbing: true,
             colors: VideoProgressColors(
               playedColor: Colors.white,
-              bufferedColor: Colors.white.withValues(alpha: 0.3),
-              backgroundColor: Colors.white.withValues(alpha: 0.1),
+              bufferedColor: Colors.white.withOpacity(0.3),
+              backgroundColor: Colors.white.withOpacity(0.1),
             ),
           ),
         ),

@@ -104,7 +104,6 @@ class FileViewerServiceImpl implements FileViewerService {
     'text/x-golang',
     'text/x-rust',
     'text/x-swift',
-    'text/x-kotlin',
     'text/x-typescript',
     'text/x-yaml',
     'text/x-yml',
@@ -133,7 +132,6 @@ class FileViewerServiceImpl implements FileViewerService {
     'text/x-lua',
     'text/x-tcl',
     'text/x-groovy',
-    'text/x-kotlin',
     'text/x-dart',
     'text/x-swift',
     'text/x-objective-c',
@@ -1177,7 +1175,7 @@ class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
             child: Center(
               child: Icon(
                 _isPlaying ? Icons.pause : Icons.play_arrow,
-                color: Colors.white.withValues(alpha: 0.8),
+                color: Colors.white.withOpacity(0.8),
                 size: 64,
               ),
             ),

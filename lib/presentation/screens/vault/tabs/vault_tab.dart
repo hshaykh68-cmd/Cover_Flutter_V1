@@ -218,7 +218,7 @@ class _VaultOverviewTabState extends ConsumerState<VaultOverviewTab>
             width: 56,
             height: 56,
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.15), // semantic color at 15% opacity
+              color: color.withOpacity(0.15), // semantic color at 15% opacity
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
@@ -283,7 +283,7 @@ class _VaultOverviewTabState extends ConsumerState<VaultOverviewTab>
               width: 36,
               height: 36,
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.15), // semantic color at 15% opacity
+                color: color.withOpacity(0.15), // semantic color at 15% opacity
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
@@ -349,10 +349,10 @@ class _QuickActionButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: AppTheme.systemOrange.withValues(alpha: 0.15),
+          color: AppTheme.systemOrange.withOpacity(0.15),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: AppTheme.systemOrange.withValues(alpha: 0.3),
+            color: AppTheme.systemOrange.withOpacity(0.3),
             width: 1,
           ),
         ),

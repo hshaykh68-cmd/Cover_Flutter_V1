@@ -80,10 +80,10 @@ class AppleStyleTopBar extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
           child: Container(
             decoration: BoxDecoration(
-              color: (backgroundColor ?? Colors.black).withValues(alpha: 0.65),
+              color: (backgroundColor ?? Colors.black).withOpacity(0.65),
               border: Border(
                 bottom: BorderSide(
-                  color: Colors.white.withValues(alpha: 0.08),
+                  color: Colors.white.withOpacity(0.08),
                   width: 0.5,
                 ),
               ),
@@ -98,7 +98,7 @@ class AppleStyleTopBar extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
-              color: Colors.white.withValues(alpha: 0.08),
+              color: Colors.white.withOpacity(0.08),
               width: 0.5,
             ),
           ),
